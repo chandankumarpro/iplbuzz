@@ -1,0 +1,98 @@
+@use "../../styles/mixins" as *;
+
+.team-title {
+  font-size: 2rem;
+  margin: 1rem 0;
+  text-align: center;
+  color: #2c3e50;
+}
+
+.card-grid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+  gap: 1rem;
+}
+
+.team-card {
+  background-color: floralwhite;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.team-card.selected {
+  background-color: #dff0ff;
+  border-color: #1e90ff;
+}
+
+.card-content {
+  padding: 1rem;
+}
+
+.card-content h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.card-content p {
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.team-container {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+
+  @include respond-to("medium") {
+    grid-template-columns: 1fr;
+  }
+}
+
+.team-box {
+  background-color: #fff;
+  border: 1px solid #ced7e0;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.team-box h2 {
+  margin-top: 0;
+  color: #1a202c;
+}
+
+.team-squad-list {
+  width: 100%;
+  max-width: 100%;
+  margin: auto 10px;
+
+  .player-link {
+    font-size: 20px;
+    font-weight: 700;
+    color: #06276b;
+  }
+}
+
+.team-squad-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.player-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin-right: 0.75rem;
+}
+
+.player-name {
+  color: #007bff;
+  cursor: pointer;
+  font-weight: 500;
+}

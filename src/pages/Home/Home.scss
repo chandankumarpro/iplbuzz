@@ -1,0 +1,49 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+
+  .team-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    width: 100%;
+    margin-bottom: 2rem;
+    transition: all 0.3 ease;
+
+    .team-card {
+      background-color: floralwhite;
+      border: 2px solid transparent;
+      padding: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      h2 {
+        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
+      }
+
+      p {
+        font-size: 0.9rem;
+        margin: 0.3rem 0;
+      }
+
+      &:hover {
+        border-color: #ccc;
+        background-color: #fff9e6;
+      }
+
+      &.selected {
+        border-color: #007bff;
+        background-color: #e6f0ff;
+      }
+    }
+  }
+  
+  .chart-container {
+    width: 100%;
+    max-width: 1000px;
+  }
+}

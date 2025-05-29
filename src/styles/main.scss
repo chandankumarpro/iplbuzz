@@ -1,0 +1,48 @@
+@use "./mixins" as *;
+
+.container {
+  padding: 2rem;
+  background-color: lightblue;
+
+  h1 {
+    font-size: 2rem;
+
+    @include respond-to("medium") {
+      font-size: 1.5rem;
+    }
+
+    @include respond-to("small") {
+      font-size: 1.2rem;
+    }
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+}
+
+select, .google_translate_element {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-size: 1rem;
+  color: #333;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23333' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 8px 10px;
+  min-width: 160px;
+  padding: 0px 5px;
+}
+
+select:hover,.google_translate_element:hover,.google_translate_element:focus
+select:focus {
+  border-color: #888;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+

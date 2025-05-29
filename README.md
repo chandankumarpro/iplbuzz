@@ -1,0 +1,1 @@
+# React app using Webpack + Typescript + SCSS + Jest + ReactTestingLibrary
