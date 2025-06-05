@@ -1,49 +1,129 @@
+@use '../../styles/mixins' as *;
+
 .home-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 2% auto;
   display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
   flex-direction: column;
-  align-items: center;
-  padding: 1rem;
+
+  @include respond-to-max("large") {
+    flex-direction: column;
+  }
+
+  @include respond-to-max-min("3xl") {
+    flex-direction: column;
+    max-width: 1600px;
+    gap: 3rem;
+  }
+
+  @include respond-to-max("4xl") {
+    max-width: 1800px;
+  }
 
   .team-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    flex: 1 0 300px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     gap: 1rem;
-    width: 100%;
-    margin-bottom: 2rem;
-    transition: all 0.3 ease;
+    width: 90%;
 
     .team-card {
-      background-color: floralwhite;
-      border: 2px solid transparent;
+      flex: 1 1 240px;
+      max-width: 240px;
       padding: 1rem;
-      border-radius: 8px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      background-color: #f5f5f5;
+      text-align: center;
       cursor: pointer;
-      transition: all 0.3s ease;
-
-      h2 {
-        margin-bottom: 0.5rem;
-        font-size: 1.2rem;
-      }
-
-      p {
-        font-size: 0.9rem;
-        margin: 0.3rem 0;
-      }
+      transition: transform 0.2s;
 
       &:hover {
-        border-color: #ccc;
-        background-color: #fff9e6;
+        transform: scale(1.03);
       }
 
       &.selected {
         border-color: #007bff;
-        background-color: #e6f0ff;
+        background-color: #e0f0ff;
+      }
+
+      @include respond-to-max("medium") {
+        min-width: 90%;
+        max-width: 90%;
+      }
+
+      h2 {
+        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
+
+        @include respond-to-max-min("3xl") {
+          font-size: 1.5rem;
+        }
+
+        @include respond-to-max-min("4xl") {
+          font-size: 1.8rem;
+        }
+      }
+
+      p {
+        font-size: 0.95rem;
+
+        @include respond-to-max-min("3xl") {
+          font-size: 1.1rem;
+        }
+
+        @include respond-to-max-min("4xl") {
+          font-size: 1.25rem;
+        }
+      }
+    }
+
+    @include respond-to-max-min("3xl") {
+      gap: 1.5rem;
+
+      .team-card {
+        flex: 1 1 260px;
+      }
+    }
+
+    @include respond-to-max-min("4xl") {
+      gap: 2rem;
+
+      .team-card {
+        flex: 1 1 300px;
       }
     }
   }
-  
+
   .chart-container {
-    width: 100%;
-    max-width: 1000px;
+    flex: 2;
+    min-width: 300px;
+    margin-top: 1rem;
+    width: 90%;
+
+    @include respond-to-max-min("medium") {
+      margin-top: 2rem;
+    }
+
+    @include respond-to-max-min("large") {
+      margin-top: 3rem;
+    }
+
+    @include respond-to-max-min("3xl") {
+      margin-top: 4rem;
+    }
+
+    @include respond-to-max-min("4xl") {
+      margin-top: 5rem;
+    }
+
+    .highcharts-container {
+      width: 100% !important;
+    }
   }
 }

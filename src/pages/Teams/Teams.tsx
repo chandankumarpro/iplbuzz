@@ -152,7 +152,7 @@ const Teams: FC = () => {
   }, [currentTeamStats?.data?.length]);
 
   return (
-    <section aria-labelledby="team-title">
+    <section className="teams-section" aria-labelledby="team-title">
       <h1 id="team-title" className="team-title">{name}</h1>
       {renderTeamCards()}
       {renderTeamContainer()}

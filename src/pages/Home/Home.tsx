@@ -99,6 +99,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="home-container">
+      <h1 id="home-title" className="home-title">{t("IPL Statistics")}</h1>
       <section className="team-cards" aria-label="Team statistics">
         {allTeams.map((card, index) => (
           <button

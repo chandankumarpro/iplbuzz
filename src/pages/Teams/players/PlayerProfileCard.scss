@@ -1,140 +1,168 @@
 @use "../../../styles/mixins" as *;
+
 .player-card {
-  max-width: 800px;
-  margin: 2rem auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  background-color: #fff;
-  padding: 1.5rem;
-  font-family: 'Arial', sans-serif;
-}
+  max-width: 1200px;
+  margin: auto;
 
-.player-basic {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  @include respond-to-max("medium") {
+    margin-top: 3rem;
+  }
 
-  .details {
-    flex: 2;
-    h2 {
-      margin-bottom: 0.25rem;
+
+  @include respond-to-max-min("3xl") {
+    max-width: 1600px;
+  }
+
+  @include respond-to-max-min("4xl") {
+    max-width: 1800px;
+  }
+
+  .player-basic {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 1rem;
+
+    @include respond-to-max("medium") {
+      flex-direction: column;
+      text-align: center;
     }
-    .subtitle {
-      color: gray;
-      margin-bottom: 1rem;
+
+    .avatar {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #ccc;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .fallback {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        font-weight: bold;
+        color: #fff;
+        background-color: #555;
+      }
     }
 
-    .teams {
-      margin-top: 0.5rem;
-      .chip {
-        display: inline-block;
-        background-color: #e0e0e0;
-        padding: 0.25rem 0.5rem;
-        margin: 0 0.25rem 0.25rem 0;
-        border-radius: 12px;
-        font-size: 0.85rem;
+    .details {
+      flex: 1;
+      padding-right: 2rem;
+
+      h2 {
+        font-size: 1.5rem;
+
+        @include respond-to-max-min("large") {
+          font-size: 2rem;
+        }
+      }
+
+      .subtitle {
+        font-size: 1rem;
+        color: gray;
+        margin-bottom: 1rem;
+      }
+
+      p {
+        margin: 0.5rem 0;
+      }
+
+      .teams {
+        margin-top: 1rem;
+
+        .chip {
+          display: inline-block;
+          background: #e0e0e0;
+          padding: 0.4rem 0.8rem;
+          border-radius: 16px;
+          margin: 0.25rem;
+          font-size: 0.9rem;
+        }
       }
     }
   }
-}
 
-.tabs {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1rem;
-
-  button {
-    background: none;
-    border: none;
-    padding: 0.5rem 1.5rem;
-    font-size: 1rem;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-
-    &.active {
-      border-bottom-color: #1976d2;
-      font-weight: bold;
-    }
-
-    &:hover {
-      background-color: #f2f2f2;
-    }
-  }
-}
-
-.tab-panel {
-  padding: 1rem;
-}
-
-.bio {
-  margin-top: 1rem;
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-
-.ranking-grid {
-  display: grid;
-  gap: 1.5rem;
-  margin-top: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-
-  @include respond-to("medium") {
-    grid-template-columns: 1fr;
-  }
-
-  .ranking-item {
-    background-color: #fafafa;
-    padding: 1rem;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-
-    h3 {
-      margin-top: 1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    p {
-      margin: 0.25rem 0;
-    }
-  }
-}
-
-.avatar {
-  position: relative;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  background-color: #ccc;
-  overflow: hidden;
-  text-align: center;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-  }
-
-  .fallback {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    font-size: 64px;
-    line-height: 140px;
-    font-weight: bold;
-    color: white;
-    background-color: #888;
-    border-radius: 50%;
-    display: none;
-    justify-content: center;
-    align-items: center;
-  }
-
-  img[style*='display: none'] + .fallback {
+  .tabs {
     display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+    padding-right: 2rem;
+
+    button {
+      padding: 0.6rem 1.2rem;
+      margin: 0 0.5rem;
+      font-size: 1rem;
+      background: none;
+      border: 1px solid #aaa;
+      cursor: pointer;
+      border-radius: 4px;
+
+      &.active {
+        background-color: #007bff;
+        color: #fff;
+        border-color: #007bff;
+      }
+    }
+  }
+
+  .tab-panel {
+    margin-top: 1rem;
+
+    .bio {
+      line-height: 1.6;
+      font-size: 1rem;
+      padding-right: 4rem;
+
+      @include respond-to-max-min("3xl") {
+        font-size: 1.1rem;
+      }
+
+      @include respond-to-max-min("4xl") {
+        font-size: 1.25rem;
+      }
+    }
+  }
+
+  .ranking-grid {
+    display: flex;
+    gap: 2rem;
+    width: 90%;
+
+    @include respond-to-max("medium") {
+      flex-direction: column;
+    }
+
+    .ranking-item {
+      flex: 1 0 calc(50% - 1rem);
+      min-width: 280px;
+      border: 2px solid #999;
+      padding: 1rem;
+      background: #f0f8ff;
+
+      h3 {
+        margin-top: 1rem;
+        font-size: 1.2rem;
+      }
+
+      p {
+        margin: 0.4rem 0;
+      }
+    }
   }
 }
 
