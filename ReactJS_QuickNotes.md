@@ -7,7 +7,11 @@
 
 1. Always use **`const`** for values that do not need to be reassigned.  
 2. **`const`** values can be **mutated** if they are objects or arrays.  
-3. Use **`let`** if the variable is block-scoped and needs to be reassigned.  
+3. Use **`let`** if the variable is block-scoped and needs to be reassigned e.g. for loop.  
 4. Avoid using **`var`** — it gets **hoisted**, which can lead to bugs.
+5. Use **`const`** in props destructuring.
+    e.g. ```js const { name, age } = props;```
+6. Use **`const`** in state variables.
+    e.g. ```js const [count, setCount] = useState(0);```
 
 ## Function Declarations
