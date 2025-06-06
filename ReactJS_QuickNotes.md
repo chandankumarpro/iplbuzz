@@ -1,7 +1,7 @@
 # Development Practices for ReactJS
 
-[Variable Declarations] (#Variable Declarations)
-[Function Declarations] (#Function Declarations)
+- [Variable Declarations] (#variable-declarations)
+- [Function Declarations] (#function-declarations)
 
 ## Variable Declarations
 
