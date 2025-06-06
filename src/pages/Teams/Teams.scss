@@ -15,11 +15,11 @@
   margin-bottom: 2rem;
   width: 90%;
 
-  @include respond-to-max-min("3xl") {
+  @include respond-to-min("3xl") {
     font-size: 2.5rem;
   }
 
-  @include respond-to-max-min("4xl") {
+  @include respond-to-min("4xl") {
     font-size: 3rem;
   }
 }
@@ -44,14 +44,14 @@
     min-width: 200px;
     flex: 1 1 calc(33.333% - 1rem);
 
-    @include respond-to-max-min("large") {
+    @include respond-to-min("large") {
       flex: 1 1 calc(25% - 1rem);
     }
 
-    @include respond-to-max-min("3xl") {
+    @include respond-to-min("3xl") {
       flex: 1 1 calc(25% - 1rem);
     }
-    @include respond-to-max-min("4xl") {
+    @include respond-to-min("4xl") {
       flex: 1 1 calc(20% - 1rem);
     }
 
@@ -67,11 +67,11 @@
     h3 {
       font-size: 1.2rem;
 
-      @include respond-to-max-min("3xl") {
+      @include respond-to-min("3xl") {
         font-size: 1.5rem;
       }
 
-      @include respond-to-max-min("4xl") {
+      @include respond-to-min("4xl") {
         font-size: 1.8rem;
       }
     }
@@ -79,11 +79,11 @@
     p {
       font-size: 0.95rem;
 
-      @include respond-to-max-min("3xl") {
+      @include respond-to-min("3xl") {
         font-size: 1.1rem;
       }
 
-      @include respond-to-max-min("4xl") {
+      @include respond-to-min("4xl") {
         font-size: 1.25rem;
       }
     }
@@ -100,11 +100,11 @@
     flex-direction: column;
   }
 
-  @include respond-to-max-min("3xl") {
+  @include respond-to-min("3xl") {
     gap: 3rem;
   }
 
-  @include respond-to-max-min("4xl") {
+  @include respond-to-min("4xl") {
     gap: 4rem;
   }
 
@@ -124,7 +124,7 @@
         font-size: 1.5rem;
         text-align: center;
 
-        @include respond-to-max-min("3xl") {
+        @include respond-to-min("3xl") {
           font-size: 2rem;
         }
       }
@@ -157,7 +157,7 @@
   max-width: 600px;
   margin: 0 auto;
 
-  @include respond-to-max-min("large") {
+  @include respond-to-min("large") {
     max-width: 100%;
   }
 

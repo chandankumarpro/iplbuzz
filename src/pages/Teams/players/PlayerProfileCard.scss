@@ -5,15 +5,15 @@
   margin: auto;
 
   @include respond-to-max("medium") {
-    margin-top: 3rem;
+    margin-top: 4rem;
   }
 
 
-  @include respond-to-max-min("3xl") {
+  @include respond-to-min("3xl") {
     max-width: 1600px;
   }
 
-  @include respond-to-max-min("4xl") {
+  @include respond-to-min("4xl") {
     max-width: 1800px;
   }
 
@@ -67,7 +67,7 @@
       h2 {
         font-size: 1.5rem;
 
-        @include respond-to-max-min("large") {
+        @include respond-to-min("large") {
           font-size: 2rem;
         }
       }
@@ -128,11 +128,11 @@
       font-size: 1rem;
       padding-right: 4rem;
 
-      @include respond-to-max-min("3xl") {
+      @include respond-to-min("3xl") {
         font-size: 1.1rem;
       }
 
-      @include respond-to-max-min("4xl") {
+      @include respond-to-min("4xl") {
         font-size: 1.25rem;
       }
     }

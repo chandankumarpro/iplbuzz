@@ -9,11 +9,15 @@
   gap: 1rem;
   flex-direction: column;
 
+  @include respond-to-max("medium") {
+    margin-top: 3rem;
+  }
+
   @include respond-to-max("large") {
     flex-direction: column;
   }
 
-  @include respond-to-max-min("3xl") {
+  @include respond-to-min("3xl") {
     flex-direction: column;
     max-width: 1600px;
     gap: 3rem;
@@ -61,11 +65,11 @@
         margin-bottom: 0.5rem;
         font-size: 1.2rem;
 
-        @include respond-to-max-min("3xl") {
+        @include respond-to-min("3xl") {
           font-size: 1.5rem;
         }
 
-        @include respond-to-max-min("4xl") {
+        @include respond-to-min("4xl") {
           font-size: 1.8rem;
         }
       }
@@ -73,17 +77,17 @@
       p {
         font-size: 0.95rem;
 
-        @include respond-to-max-min("3xl") {
+        @include respond-to-min("3xl") {
           font-size: 1.1rem;
         }
 
-        @include respond-to-max-min("4xl") {
+        @include respond-to-min("4xl") {
           font-size: 1.25rem;
         }
       }
     }
 
-    @include respond-to-max-min("3xl") {
+    @include respond-to-min("3xl") {
       gap: 1.5rem;
 
       .team-card {
@@ -91,7 +95,7 @@
       }
     }
 
-    @include respond-to-max-min("4xl") {
+    @include respond-to-min("4xl") {
       gap: 2rem;
 
       .team-card {
@@ -106,19 +110,19 @@
     margin-top: 1rem;
     width: 90%;
 
-    @include respond-to-max-min("medium") {
+    @include respond-to-min("medium") {
       margin-top: 2rem;
     }
 
-    @include respond-to-max-min("large") {
+    @include respond-to-min("large") {
       margin-top: 3rem;
     }
 
-    @include respond-to-max-min("3xl") {
+    @include respond-to-min("3xl") {
       margin-top: 4rem;
     }
 
-    @include respond-to-max-min("4xl") {
+    @include respond-to-min("4xl") {
       margin-top: 5rem;
     }
 

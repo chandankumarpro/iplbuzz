@@ -7,7 +7,7 @@
   }
 }
 
-@mixin respond-to-max-min($breakpoint) {
+@mixin respond-to-min($breakpoint) {
   @media (min-width: map.get($breakpoints, $breakpoint)) {
     @content;
   }

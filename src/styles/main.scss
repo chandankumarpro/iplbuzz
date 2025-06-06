@@ -15,14 +15,14 @@ body {
   background-color: lightblue;
   width: 100%;
 
-  @include respond-to-max-min("medium") {
+  @include respond-to-min("medium") {
     padding: 5rem;
     padding-left: 1rem;
   }
-  @include respond-to-max-min("large") {
+  @include respond-to-min("large") {
     padding: 4rem;
   }
-  @include respond-to-max-min("xlarge") {
+  @include respond-to-min("xlarge") {
     padding: 3rem;
   }
 }
