@@ -4,6 +4,9 @@
 - [Function Declarations](#function-declarations)
 - [useState Hook](#usestate-hook)
 - [useEffect Hook](#useeffect-hook)
+- [useRef Hook](#useref-hook)
+- [useCallback Hook](#usecallback-hook)
+- [useReducer Hook](#usereducer-hook)
 
 ## Variable Declarations
 
@@ -159,4 +162,134 @@
           controller.abort();
         };
     }, [userId]);
+    ```
+
+## useRef Hook
+
+1. Syntax
+
+    ```js
+    const ref = useRef(null)
+    ```
+
+2. We can use **`useRef`** hook to:
+    a. Persist value across renders without trigger re-renders.
+    b. Directly reference DOM element.
+    c. It returns a mutable object **`{current:value}`**.
+3. Don't read or write **`ref.current`** during rendering.
+4. Don't pass **`useRef`** to your own component like below:
+
+    ```js
+    // below code will throw error : Cannot read properties of null
+    const inputRef = useRef(null);
+
+    return <MyInput ref={inputRef} />;
+    ```
+
+5. If we need to pass ref to child component we need to wrap child component with forwardRef.
+
+    ```js
+    import {forwardRef} from 'react'
+    const MyInput = forwardRef((props, ref) => {
+        return (
+            <div>
+                <label>{props.label}</label>
+                <input ref={ref} {...props} />
+            </div>
+        );
+    });
+    ```
+
+## useCallback Hook
+
+1. Syntax
+
+    ```js
+    const callbackFn = useCallback(() => {
+    // function body
+    }, [dependencies]);
+    ```
+
+2. useCallback is a React Hook that lets you cache a function definition between re-renders.
+3. You should only rely on useCallback as a performance optimization. If your code doesn’t work without it, find the underlying problem and fix it first. Then you may add useCallback back.
+4. Don't use **`useCallback`** if you are not passing function to children or memoize hook.
+5. Don't use **`useCallback`** if your funtion doesn't use fequently changing props and state.
+
+## useReducer Hook
+
+1. Syntax:
+
+    ```js
+    const [state, dispatch] = useReducer(reducerFn, initialState);
+    ```
+
+2. useReducer is a React Hook that lets you add a reducer to your component. This hook is used for managing state transitions.
+3. We can use **`useReducer`** if :
+    a. Our State logic is complex.
+    b. State update depends on previous state.
+    c. Two of more state having same related states.
+4. Example
+
+    ```js
+    const initialFormState = {
+      name: '',
+      email: '',
+      isTouched: false
+    };
+
+    const formReducer = (state, action) => {
+      switch (action.type) {
+        case 'UPDATE_FIELD':
+          return { ...state, [action.field]: action.value };
+        case 'TOUCH':
+          return { ...state, isTouched: true };
+        case 'RESET':
+          return { name: '', email: '', isTouched: false };
+        default:
+          return state;
+      }
+    };
+
+
+    const Export default FormComponent() {
+    const [state, dispatch] = useReducer(formReducer, initialFormState);
+
+        return (
+            <form>
+                <input
+                  value={state.name}
+                  onChange={e =>
+                    dispatch({ type: 'UPDATE_FIELD', field: 'name', value: e.target.value })
+                  }
+                />
+                <input
+                  value={state.email}
+                  onChange={e =>
+                    dispatch({ type: 'UPDATE_FIELD', field: 'email', value: e.target.value })
+                  }
+                />
+                <button type="button" onClick={() => dispatch({ type: 'TOUCH' })}>
+                  Touch
+                </button>
+                <button type="button" onClick={() => dispatch({ type: 'RESET' })}>
+                    Reset
+                </button>
+            </form>
+        );
+    }
+    ```
+
+5. State is read-only. Don’t modify any objects or arrays in state. Instead, always return new objects from your reducer:
+
+    ```js
+    function reducer(state, action) {
+        switch (action.type) {
+            case 'incremented_age': {
+                return {
+                ...state,// copy all properties of state
+                age: state.age + 1
+                };
+            }
+        }
+    }
     ```
