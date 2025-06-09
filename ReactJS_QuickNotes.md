@@ -224,10 +224,12 @@
     ```
 
 2. useReducer is a React Hook that lets you add a reducer to your component. This hook is used for managing state transitions.
-3. We can use **`useReducer`** if :
+
+3. We can use **`useReducer`** if:
     a. Our State logic is complex.
     b. State update depends on previous state.
     c. Two of more state having same related states.
+
 4. Example
 
     ```js
