@@ -89,10 +89,10 @@
 ## useEffect Hook
 
 1. **`useEffect`** is a React Hook that let us to perform side effects in functional components like:
-    a. Fetching Data
-    b. Subscribing to events
-    c. Timers
-    d. Manual interaction with DOM.
+    - **a.** Fetching Data
+    - **b.** Subscribing to events
+    - **c.** Timers
+    - **d.** Manual interaction with DOM.
 
     Syntax:
 
@@ -108,9 +108,9 @@
     ```
 
 2. **`useEffect`** dependencies rule:
-    a. `[]` - Empty dependecy for run useEffect on components mount.
-    b. `[a,b]` useEffect will run on when effect a or b dependency change and on component mount.
-    c. No array -- Not recomended - runs of every renders.
+    - **a.** `[]` - Empty dependecy for run useEffect on components mount.
+    - **b.** `[a,b]` useEffect will run on when effect a or b dependency change and on component mount.
+    - **c.** No array -- Not recomended - runs of every renders.
 
 3. We should call **`useEffect`** at top level of our component, we can't call inside loops or conditions.
 4. Remove unnecessary objects and functions from dependencies.
@@ -173,9 +173,9 @@
     ```
 
 2. We can use **`useRef`** hook to:
-    a. Persist value across renders without trigger re-renders.
-    b. Directly reference DOM element.
-    c. It returns a mutable object **`{current:value}`**.
+    - **a.** Persist value across renders without trigger re-renders.
+    - **b.** Directly reference DOM element.
+    - **c.** It returns a mutable object **`{current:value}`**.
 3. Don't read or write **`ref.current`** during rendering.
 4. Don't pass **`useRef`** to your own component like below:
 
@@ -226,9 +226,9 @@
 2. useReducer is a React Hook that lets you add a reducer to your component. This hook is used for managing state transitions.
 
 3. We can use **`useReducer`** if:
-    a. Our State logic is complex.
-    b. State update depends on previous state.
-    c. Two of more state having same related states.
+    - **a.** Our State logic is complex.
+    - **b.** State update depends on previous state.
+    - **c.** Two of more state having same related states.
 
 4. Example
 
