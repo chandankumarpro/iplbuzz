@@ -83,3 +83,79 @@
 6. To get updated value after state change, use **`useEffect`**.
 
 ## useEffect
+
+1. **`useEffect`** is a React Hook that let us to perform side effects in functional components like:
+    a. Fetching Data
+    b. Subscribing to events
+    c. Timers
+    d. Manual interaction with DOM.
+
+    Syntax:
+
+    ```js
+    useEffect(() => {
+        //logic
+
+        //clean up(optional)
+        return () => {
+            //logic
+        }
+    },[dependencies])
+    ```
+
+2. **`useEffect`** dependencies rule:
+    a. `[]` - Empty dependecy for run useEffect on components mount.
+    b. `[a,b]` useEffect will run on when effect a or b dependency change and on component mount.
+    c. No array -- Not recomended - runs of every renders.
+
+3. We should call **`useEffect`** at top level of our component, we can't call inside loops or conditions.
+4. Remove unnecessary objects and functions from dependencies.
+5. For unrelated logic we can write separate use effetcs with proper dependencies.
+6. don't use Async function directly.
+
+    ```js
+    // correct use of async 
+    useEffect(() => {
+    const fetchData = async () => { ... };
+    fetchData();
+    }, []);
+    ```
+
+7. Don't mutate state inside dependency, this will result infinte loop.
+
+    ```js
+    // Never mutate like this
+    useEffect(() => {
+    setValue(value + 1);
+    }, [value]);
+    ```
+
+8. Always write cleanup function for best practices.
+
+    ```js
+    // A sample useEffect with cleanup functions
+    useEffect(() => {
+        const controller = new AbortController();
+        const signal = controller.signal;
+
+        const fetchUser = async () => {
+            try {
+                const res = await fetch(`/api/users/${userId}`, { signal });
+                const data = await res.json();
+                setUser(data);
+            } catch (error) {
+            if (error.name === 'AbortError') {
+                console.log('Fetch aborted');
+            } else {
+            // Handle other errors
+            }
+            }
+        };
+
+        fetchUser();
+
+        return () => {
+          controller.abort();
+        };
+    }, [userId]);
+    ```
