@@ -3,6 +3,7 @@
 - [Variable Declarations](#variable-declarations)
 - [Function Declarations](#function-declarations)
 - [useState Hook](#usestate-hook)
+- [useEffect Hook](#useeffect-hook)
 
 ## Variable Declarations
 
@@ -82,7 +83,7 @@
 
 6. To get updated value after state change, use **`useEffect`**.
 
-## useEffect
+## useEffect Hook
 
 1. **`useEffect`** is a React Hook that let us to perform side effects in functional components like:
     a. Fetching Data
@@ -133,7 +134,7 @@
 8. Always write cleanup function for best practices.
 
     ```js
-    // A sample useEffect with cleanup functions
+    // A sample useEffect with cleanup function
     useEffect(() => {
         const controller = new AbortController();
         const signal = controller.signal;
