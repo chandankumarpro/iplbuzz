@@ -7,6 +7,7 @@
 - [useRef Hook](#useref-hook)
 - [useCallback Hook](#usecallback-hook)
 - [useReducer Hook](#usereducer-hook)
+- [State management using useState vs useReducer vs Context API](#state-management-using-usestate-vs-usereducer-vs-context-api)
 
 ## Variable Declarations
 
@@ -294,4 +295,233 @@
             }
         }
     }
+    ```
+
+## State Management using useState vs useReducer vs context API
+
+1. React offers many powerful tools for managing state in our applications. useState, useReducer, and the Context API are more commonly used and are built-in functional hooks.
+
+2. When to use **`useState`** hook:
+    - When we need state for our current component and we need not to prop drill to other components.
+    - It's independent, small, and doesn't require complex updates.
+    - Some examples use cases are in :
+        - a counter
+        - form input
+        - toggle state
+        - tab selection
+        - modal visiblity etc.
+    e.g.
+
+    ```js
+    const [count, setCount] = useState(0);
+
+    const incrementFn = () => {
+        setCount(prev => prev + 1)
+    }
+
+    <button onClick={incrementFn}>Increment</button>
+    ```
+
+3. When to use **`useReducer`** hook:
+    - When we have complex state logic.
+        e.g.
+
+        ```js
+        // Here state of "step" may affect "error" state or formdata
+        const initialState = {
+          step: 1,
+          formData: {},
+          error: null,
+        };
+
+        function formReducer(state, action) {
+          switch (action.type) {
+            case 'NEXT_STEP':
+              return { ...state, step: state.step + 1 };
+            case 'UPDATE_FIELD':
+              return {
+                ...state,
+                formData: { ...state.formData, [action.field]: action.value },
+              };
+            case 'SET_ERROR':
+              return { ...state, error: action.payload };
+            default:
+              return state;
+          }
+        }
+        ```
+
+    - When more than one state are uses for same purpose like username and email in login form.
+        e.g.
+
+        ```js
+        // In this case, state of "total" is dependent on state of "item[]"
+        const initialState = {
+            items: [],
+            total: 0,
+        };
+
+        function cartReducer(state, action) {
+          switch (action.type) {
+            case 'ADD_ITEM':
+              const updatedItems = [...state.items, action.payload];
+              const updatedTotal = updatedItems.reduce((sum, item) => sum + item.price, 0);
+              return { items: updatedItems, total: updatedTotal };
+
+            case 'REMOVE_ITEM':
+              const filteredItems = state.items.filter(item => item.id !== action.payload);
+              const newTotal = filteredItems.reduce((sum, item) => sum + item.price, 0);
+              return { items: filteredItems, total: newTotal };
+
+            default:
+              return state;
+          }
+        }
+        ```
+
+    - When state action depends on previous state or other state.
+        e.g.
+
+        ```js
+        // Here each "TOGGLE" action depend on state od "isOn" 
+        const initialState = {
+        isOn: false,
+        history: [],
+        };
+
+        function toggleReducer(state, action) {
+          switch (action.type) {
+            case 'TOGGLE':
+              return {
+                isOn: !state.isOn,
+                history: [...state.history, state.isOn],
+              };
+            case 'UNDO':
+              const last = state.history.pop();
+              return {
+                isOn: last ?? state.isOn,
+                history: [...state.history],
+              };
+            default:
+              return state;
+          }
+        }
+        ```
+
+### 4.Context API
+
+1. The Context API provides a way to pass data through the component tree without having to pass props down manually at every level (known as "prop drilling").
+2. We can't over use context api, It may make components less reusable.
+3. Always use contextProvider at root level of application like in app.js
+4. For better performance and organization, consider breaking down your global state into smaller, more specific contexts rather than a single large context. This helps prevent unnecessary re-renders of components that only rely on a small part of the global state.  
+5. Best use of context API is in simple global state management like **theme setting** and **language preference**.
+6. Example of theme context
+
+    ```js
+    // ThemeContext.js
+    import React, { createContext, useState, useContext } from 'react';
+
+    const ThemeContext = createContext();
+
+    export const ThemeProvider = ({ children }) => {
+    const [theme, setTheme] = useState('light');
+
+    const toggleTheme = () => {
+        setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
+    };
+
+    const contextValue = { theme, toggleTheme };
+
+    return (
+        <ThemeContext.Provider value={contextValue}>
+          {children}
+        </ThemeContext.Provider>
+    );
+    };
+
+    export const useTheme = () => {
+        return useContext(ThemeContext);
+    };
+    ```
+
+    ```js
+    import React from 'react';
+    import { ThemeProvider } from './ThemeContext';
+    import Header from './Header';
+
+    function App() {
+      return (
+        <ThemeProvider>
+            <div>
+            <Header />
+            // other components
+            </div>
+        </ThemeProvider>
+      );
+    }
+
+    export default App;
+    ```
+
+    ```js
+    import React from 'react';
+    import { useTheme } from './ThemeContext';
+
+    function Header() {
+      const { theme, toggleTheme } = useTheme();
+
+      return (
+        <header style={{ background: theme === 'light' ? '#f0f0f0' : '#333', color: theme === 'light' ? '#333' : '#fff', padding: '10px' }}>
+          <h2>Current Theme: {theme}</h2>
+          <button onClick={toggleTheme}>Toggle Theme</button>
+        </header>
+      );
+    }
+
+    export default Header;
+    ```
+
+7. For more complex global state logic, it's a common and powerful pattern to combine Context API with useReducer. The useReducer manages the complex state updates, and the Context API provides the state and dispatch function to the component tree.
+    e.g:
+
+    ```js
+    // AuthContext.tsx
+    const AuthContext = createContext();
+
+    const initialState = { user: null, loading: false, error: null };
+
+    function authReducer(state, action) {
+      switch (action.type) {
+        case 'LOGIN_START': return { ...state, loading: true };
+        case 'LOGIN_SUCCESS': return { user: action.payload, loading: false };
+        case 'LOGIN_FAIL': return { ...state, error: action.payload, loading: false };
+        case 'LOGOUT': return initialState;
+        default: return state;
+      }
+    }
+
+    function AuthProvider({ children }) {
+      const [state, dispatch] = useReducer(authReducer, initialState);
+
+      return (
+        <AuthContext.Provider value={{ state, dispatch }}>
+          {children}
+        </AuthContext.Provider>
+      );
+    }
+    ```
+
+    ```js
+    // Usage
+    const { dispatch } = useContext(AuthContext);
+
+    const handleLogin = async () => {
+      dispatch({ type: 'LOGIN_START' });
+      try {
+        const user = await loginApiCall();
+        dispatch({ type: 'LOGIN_SUCCESS', payload: user });
+      } catch (err) {
+        dispatch({ type: 'LOGIN_FAIL', payload: err.message });
+      }
+    };
     ```
