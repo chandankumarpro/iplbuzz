@@ -7,7 +7,11 @@
 - [useRef Hook](#useref-hook)
 - [useCallback Hook](#usecallback-hook)
 - [useReducer Hook](#usereducer-hook)
+- [Context API](#4context-api)
 - [State management using useState vs useReducer vs Context API](#state-management-using-usestate-vs-usereducer-vs-context-api)
+- [debugging in react app](#debugging-in-react-app)
+- [Logging Error](#logging-error-and-response)
+- [Responsiveness](#cross-browser-and-cross-device-testing)
 
 ## Variable Declarations
 
@@ -525,3 +529,120 @@
       }
     };
     ```
+
+## debugging in react app
+
+1. In browser DevTools, set breakpoints inside event handlers, lifecycle methods, effects, etc.
+2. Use of react developer tool Extension. It has tow section:
+
+    - **a.** The Components tool, where you can analyse the structure of the components.
+    - **b.** The Profiler tool, where you can see the time each component took to render and how they are updated.
+
+3. Use of ESLint with React plugin and type checking like PropType. It helps to prevent bugs before runtime.
+4. Use of breack points inside JSX
+  e.g:
+
+    ```js
+    setTimeout(() =>{
+      debugger;
+      // code
+    },2000)
+    ```
+
+5. These are the debugging best practice steps:
+    - **a.** Start by analysing the workflow the code is following that affects a particular section of code.
+    - **b.** If nothing wrong is found, we could use the React Developer Tools to analyse each component closely.
+    - **c.** If that analysis is not delivering results, we could apply breakpoints at different sections in the code and see how the variables are being altered.
+    - **d.** If everything else fails, just comment out pieces of code and see what happens.
+
+## Logging error and response
+
+1. Use console.log, console.warn, or console.error to inspect variables, props, state.
+  e.g:
+
+    ```js
+    // Avoid console logs in production
+    console.log("User login data:", userData);
+    ```
+
+2. In React, an **`Error Boundary`** is a component that catches JavaScript errors anywhere in its child component tree, logs those errors, and displays a      fallback UI instead of crashing the whole component tree.
+
+    Steps to use Error Boundary in functional component:
+     - Install react-error-boundary
+
+      ```bash
+      npm install react-error-boundary
+      ```
+
+      ```js
+      // Create Fallback component
+      const ErrorFallback = ({ error }) => (
+        <div role="alert" style={{ color: 'red' }}>
+          <p>Something went wrong:</p>
+          <pre>{error.message}</pre>
+        </div>
+      );
+
+      export default ErrorFallback;
+      ```
+
+      ```js
+      // Wrap root component
+      import React from 'react';
+      import { ErrorBoundary } from 'react-error-boundary';
+      import Employee from './components/Employee';
+      import ErrorFallback from './components/ErrorFallback';
+
+      const App = () => {
+      const employeeData = {
+        name: 'John Doe'
+      };
+
+        return (
+          <div>
+            <h1>Company Portal</h1>
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
+              <Employee employee={employeeData} />
+            </ErrorBoundary>
+          </div>
+        );
+      };
+
+      export default App;
+      ```
+
+      ```js
+      //Use in any component
+      import React from 'react';
+
+      const Employee = ({ employee }) => {
+        if (!employee) {
+          throw new Error('Employee data is not available.');
+        }
+
+        return (
+          <div>
+            <h3>Employee Details</h3>
+            <p>Name: {employee.name}</p>
+            <p>Position: {employee.position}</p>
+          </div>
+        );
+      };
+
+      export default Employee;
+      ```
+
+3. We can use some external tools like **Sentry**, which provide custom error boundry component for react. It automatically sends JavaScript errors within a component tree to Sentry.
+4. Use an Axios interceptor to log requests, responses & timing.
+
+## Cross Browser and Cross Device testing
+
+1. Cross browser and cross device testing includes:
+    - Different browsers like Chrome, Firefox, Safari, Edge etc.
+    - Different devices like mobile, desktop, tablet etc.
+    - Different screen size and resolutions.
+2. We can use responsive design approach like:
+    - CSS media queries
+    - Resposive units like %, vw, rem etc.
+3. We can use Device Emulation in browswer devtool.
+4. Test responsive on incognito mode.
