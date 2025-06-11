@@ -12,6 +12,7 @@
 - [debugging in react app](#debugging-in-react-app)
 - [Logging Error](#logging-error-and-response)
 - [Responsiveness](#cross-browser-and-cross-device-testing)
+- [Measure Performance](#measure-performance)
 
 ## Variable Declarations
 
@@ -646,3 +647,49 @@
     - Resposive units like %, vw, rem etc.
 3. We can use Device Emulation in browswer devtool.
 4. Test responsive on incognito mode.
+
+## Measure Performance
+
+1. The first step in improving the performance of a React application is to measure its current performance. Some of tools to measure performance:
+
+      - Lighthouse - Open source tool available on most of brouser extension.
+      - React devtool - Helps ue to record the activity in our app an genarate report. It helps to detect render and re-render of react component.
+
+2. We can use **`React.memo`** in functional components with some point to considered:
+    - Only use if component of to expensive when re-rendering occurs.
+    - Component should pure.
+    - Use along with **`useMemo`** and **`useCallback`** for complex function and states.
+3. Use lazy loading - It helps to load the content when needed also known as code slitting.
+    e.g:
+
+    ```js
+    import React, { Suspense } from 'react';
+
+    const LazyComponent = React.lazy(() => import('./LazyComponent'));
+
+    function App() {
+      return (
+        <div>
+          <Suspense fallback={<div>Loading...</div>}>
+            <LazyComponent />
+          </Suspense>
+        </div>
+      );
+    }
+    ```
+
+**3.a.** We can use **`React.lazy()`** together with React Router.
+
+    ```js
+      const Home = React.lazy(() => import('./pages/Home'));
+      const About = React.lazy(() => import('./pages/About'));
+
+      <Route path="/home" element={
+        <Suspense fallback={<Loading />}>
+          <Home />
+        </Suspense>
+      } />
+    ```
+
+4. We can optimize Image and asset loading.
+5. Optimize API calls using tools like **`React Query`** and **`SWR`**.
