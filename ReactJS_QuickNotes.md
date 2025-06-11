@@ -678,9 +678,9 @@
     }
     ```
 
-**3.a.** We can use **`React.lazy()`** together with React Router.
+4. We can use **`React.lazy()`** together with React Router.
 
-    ```js
+      ```js
       const Home = React.lazy(() => import('./pages/Home'));
       const About = React.lazy(() => import('./pages/About'));
 
@@ -689,7 +689,7 @@
           <Home />
         </Suspense>
       } />
-    ```
+      ```
 
-4. We can optimize Image and asset loading.
-5. Optimize API calls using tools like **`React Query`** and **`SWR`**.
+5. We can optimize Image and asset loading.
+6. Optimize API calls using tools like **`React Query`** and **`SWR`**.
