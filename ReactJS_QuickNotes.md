@@ -13,6 +13,7 @@
 - [Logging Error](#logging-error-and-response)
 - [Responsiveness](#cross-browser-and-cross-device-testing)
 - [Measure Performance](#measure-performance)
+- [Use of HAR file](#importance-of-har-file)
 
 ## Variable Declarations
 
@@ -693,3 +694,27 @@
 
 5. We can optimize Image and asset loading.
 6. Optimize API calls using tools like **`React Query`** and **`SWR`**.
+
+## Importance of HAR File
+
+1. A HAR file is a JSON-formatted archive file that records a web browser’s interaction with a site.
+2. How to generate a HAR file?
+
+    - On Web Browser nevigate to deletools.
+    - Load the page with network tab open.
+    - Right clich on request list and save as HAR file.
+
+3. HAR file contain different kind of logs. some of them are
+
+    - HTTP requests and responses.
+    - Headers
+    - Cookies
+    - Query String
+    - Payload request/response
+    - How much time taken in each request.
+
+4. There are several instance when HAR file help us in performance optimisation like:
+
+    - When debugging react app that is having network related issues.
+    - Repoting bug to backend developer or API provider.
+    - Large payload or insufficient resources.
