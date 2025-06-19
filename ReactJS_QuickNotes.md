@@ -728,9 +728,9 @@
 
 3. **Using useEffect hook without dependencies:** If you use useEffect hook without dependencies, it will run on every render. You can optimize this by passing an empty array as the second argument to useEffect hook.
 
-**Parent Component Re-renders:** If a parent component re-renders, all its child components will also re-render. You can optimize this by using React.memo to memoize the child component where possible.
+4. **Parent Component Re-renders:** If a parent component re-renders, all its child components will also re-render. You can optimize this by using React.memo to memoize the child component where possible.
 
-**Global State Changes:** If you use global state management libraries like Redux, MobX, etc., and the global state changes, all the components that use that state will re-render. You can optimize this by using useSelector hook to select only the state that you need in a component.
+5. **Global State Changes:** If you use global state management libraries like Redux, MobX, etc., and the global state changes, all the components that use that state will re-render. You can optimize this by using useSelector hook to select only the state that you need in a component.
 
-**Misusing Context:** If you use Context API to pass data to child components, and the data changes, all the child components will re-render. You can optimize this by using useContext hook to select only the data that you need in a component.
+6. **Misusing Context:** If you use Context API to pass data to child components, and the data changes, all the child components will re-render. You can optimize this by using useContext hook to select only the data that you need in a component.
 You can also use React.StrictMode to detect potential problems in your code that could cause unnecessary re-renders.
