@@ -870,7 +870,7 @@ export const {
 export default counterSlice.reducer;
 ```
 
-#### 4. Use reducer in your components
+#### 4. Use slices in your components
 
 ```js
 import { useDispatch, useSelector } from "react-redux"
