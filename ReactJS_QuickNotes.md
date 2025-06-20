@@ -870,10 +870,9 @@ export const {
 export default counterSlice.reducer;
 ```
 
-#### 4. Create slices e.g counterSlice
+#### 4. Use reducer in your components
 
 ```js
-// Use reducer in your components
 import { useDispatch, useSelector } from "react-redux"
 import type { AppDispatch, RootState } from "../../App/store/store"
 import {
