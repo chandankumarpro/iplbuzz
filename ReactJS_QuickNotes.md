@@ -15,6 +15,7 @@
 - [Measure Performance](#measure-performance)
 - [Use of HAR file](#importance-of-har-file)
 - [Reasons for unnecessay re-renders](#reasons-for-unnecessay-re-renders)
+- [Redux Toolkit (RTK) vs Context API with useReducer](#use-of-redux-toolkit-over-context-api-with-usereducer)
 
 ## Variable Declarations
 
@@ -734,3 +735,168 @@
 
 6. **Misusing Context:** If you use Context API to pass data to child components, and the data changes, all the child components will re-render. You can optimize this by using useContext hook to select only the data that you need in a component.
 You can also use React.StrictMode to detect potential problems in your code that could cause unnecessary re-renders.
+
+## Use of Redux Toolkit over Context API with useReducer
+
+### 1. Better Scalability and Structure
+
+- RTK is designed for building scalable state management architecture with predefined structure and conventions.
+- Context + useReducer gets harder to maintain as your app grows—nesting multiple contexts can become cumbersome.
+- RTK enforces best practices like separating logic into "slices," making large codebases easier to manage.
+
+### 2. Boilerplate Reduction
+
+- RTK reduces traditional Redux boilerplate through utilities like createSlice, createAsyncThunk, etc.
+- Context + useReducer often requires manually writing types, reducers, actions, and dispatchers.
+- RTK heps in Faster development and fewer chances for bugs due to repetitive code.
+
+### 3. Built-in DevTools Support
+
+- RTK integrates seamlessly with the Redux DevTools extension.
+- Context + useReducer lacks built-in debugging tools and requires manual logging.
+- Redux DevTools enable powerful debugging, time-travel, and state inspection.
+
+### 4. Built-in Async Handling
+
+- RTK offers createAsyncThunk for handling async logic with loading/error states built-in.
+- Context + useReducer needs custom logic (often messy) for handling side effects.
+- RTK helps to write Clean, declarative async flows save time and reduce bugs.
+
+### 5. Middleware and Ecosystem Support
+
+- RTK supports middleware like redux-thunk, redux-saga, or custom ones.
+- Context API does not support middleware out of the box.
+- Middleware helps with logging, analytics, async flows, and more.
+
+### 6. Performance Optimization
+
+- RTK encourages useSelector with memoization via React-Redux, avoiding unnecessary re-renders.
+- Context re-renders all consumers on any change unless manually optimized using memoization or splitting contexts.
+- RTK provides better performance out of the box in many cases.
+
+### 7. Sample Example
+
+#### 1. install npm packages
+
+```cmd
+npm install @reduxjs/toolkit
+```
+
+```cmd
+npm install react-redux
+```
+
+#### 2. Create store.ts file
+
+```js
+import { configureStore } from "@reduxjs/toolkit";
+import counterReducer from "../../features/counter/counterSlice";
+
+
+export const store = configureStore({
+    reducer : {
+        counter: counterReducer
+    }
+} )
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+```
+
+```js
+// Use store in root component
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.tsx'
+import { Provider } from 'react-redux'
+import { store } from './App/store/store.ts'
+
+createRoot(document.getElementById('root')!).render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+)
+```
+
+#### 3. Create slices e.g counterSlice
+
+```js
+import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit"
+
+type CounterState = {
+    value: number
+}
+
+const initialState: CounterState = {
+    value: 0
+}
+
+// create slice
+const counterSlice = createSlice({
+    name: "counter",
+    initialState,
+    reducers: {
+        increment: (state) => { state.value += 1},
+        decrement: (state) => { state.value -= 1},
+        incrementByValue: (state, action: PayloadAction<number>) => {
+            state.value += action.payload
+        },
+    },
+    extraReducers: (builder) => {
+        builder
+        .addCase(incrementAsync.pending, () => {console.log("incrementAsync.pending")})
+        .addCase(incrementAsync.fulfilled, (state, action: PayloadAction<number>) => {
+            state.value += action.payload
+        })
+    }
+})
+
+// reducer for http requests
+export const incrementAsync = createAsyncThunk(
+    "counter/incrementAsync",
+    async (amount:number) => {
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+        return amount;
+    }
+)
+
+// export reducers
+export const {
+    increment, 
+    decrement, 
+    incrementByValue,
+} = counterSlice.actions;
+
+export default counterSlice.reducer;
+```
+
+#### 4. Create slices e.g counterSlice
+
+```js
+// Use reducer in your components
+import { useDispatch, useSelector } from "react-redux"
+import type { AppDispatch, RootState } from "../../App/store/store"
+import {
+  decrement,
+  increment,
+  incrementAsync,
+  incrementByValue,
+} from "../../features/counter/counterSlice";
+
+const Counter = () => {
+    const count = useSelector((state: RootState) => state.counter.value)
+    const dispatch = useDispatch<AppDispatch>();
+  return (
+    <div>
+        <h2>{count}</h2>
+        <div>
+            <button onClick={() =>dispatch(increment())}>Increment</button>
+            <button onClick={() =>dispatch(decrement())}>Decrement</button>
+            <button onClick={() =>dispatch(incrementByValue(2))}>incrementByValue</button>
+            <button onClick={() =>dispatch(incrementAsync(20))}>incrementAsync</button>
+        </div>
+    </div>
+  )
+}
+export default Counter
+```
