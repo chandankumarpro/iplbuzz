@@ -2,11 +2,14 @@
   "compilerOptions": {
     "target": "ES6",
     "module": "ESNext",
+    "lib": ["DOM", "ES6"],
     "jsx": "react-jsx",
-    "strict": true,
+     "strict": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
     "types": ["jest", "@testing-library/jest-dom"],
     "outDir": "./dist"
