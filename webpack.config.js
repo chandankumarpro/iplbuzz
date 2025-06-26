@@ -61,7 +61,7 @@ module.exports = (env, argv) => {
           : false,
       }),
       new Dotenv({
-        path: "./.env",
+        path: ".env",
         systemvars: true,
       }),
     ],
