@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSpinner } from '../../../contexts/SpinnerContext';
-import './spinner.scss';
+import './Spinner.scss';
 
 const Spinner = () => {
   const { loading } = useSpinner();
